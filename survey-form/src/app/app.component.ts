@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { FieldBase } from './survey-field/field-base';
 import { FieldService } from './survey-field/field-service';
 
@@ -9,11 +8,18 @@ import { FieldService } from './survey-field/field-service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'survey-form';
+  title = 'Survey';
   activeTab = 0;
-  fields$: Observable<FieldBase<string>[]>;
+  fields: FieldBase<string>[];
+  totalTabs: number;
+  success = false;
 
   constructor(service: FieldService) {
-    this.fields$ = service.getFields();
+    service.getFields().subscribe(data => {
+       // tslint:disable-next-line: no-string-literal
+       this.fields = data['default'];
+       // tslint:disable-next-line: no-string-literal
+       this.totalTabs = data['default'].length;
+    });
   }
 }

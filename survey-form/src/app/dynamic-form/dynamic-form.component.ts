@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FieldBase } from '../survey-field/field-base';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { FieldService } from '../survey-field/field-service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -11,25 +12,30 @@ export class DynamicFormComponent implements OnInit {
 
   @Input() fields: FieldBase<string>[] = [];
   surveyForm: FormGroup;
-  payLoad = '';
+  @Input() totalTabs;
+  @Input() index;
+  @Input() activeTab;
+  @Output() selectedTab = new EventEmitter<number>();
+  @Output() complt = new EventEmitter<boolean>();
+  submitted = false;
+  // successMessage: string;
 
-  constructor() {  }
+  constructor(private fb: FormBuilder, private service: FieldService) { }
 
   ngOnInit() {
-    const group: any = {};
-
-    this.fields.forEach(item => {
-      console.log(item);
-      const validators = [
-        item.required ? Validators.required : null,
-        item.length > 0 ? Validators.maxLength(item.length) : null
-      ];
-      group[item.field] = new FormControl('', validators);
-    });
-    this.surveyForm = new FormGroup(group);
+    this.surveyForm = this.service.getFormGroup(this.fields);
   }
 
   onSubmit() {
-    // this.payLoad = JSON.stringify(this.form.getRawValue());
+    this.submitted = true;
+    if (this.surveyForm.valid) {
+      if (this.activeTab < (this.totalTabs - 1)) {
+        this.activeTab = this.activeTab + 1;
+        this.selectedTab.emit(this.activeTab);
+      } else {
+        this.complt.emit(true);
+        console.log(this.surveyForm.value);
+      }
+    }
   }
 }

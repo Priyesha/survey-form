@@ -7,19 +7,29 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FieldService } from './survey-field/field-service';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTabsModule } from '@angular/material';
+import { DynamicFieldComponent } from './dynamic-field/dynamic-field.component';
+
+import {MatInputModule} from '@angular/material/input';
+import { MatTabsModule, MatFormFieldModule } from '@angular/material';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DynamicFormComponent
+    DynamicFormComponent,
+    DynamicFieldComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     NoopAnimationsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatButtonModule
   ],
   providers: [FieldService],
   bootstrap: [AppComponent]
