@@ -15,11 +15,8 @@ export class AppComponent {
   success = false;
 
   constructor(service: FieldService) {
-    service.getFields().subscribe(data => {
-       // tslint:disable-next-line: no-string-literal
-       this.fields = data['default'];
-       // tslint:disable-next-line: no-string-literal
-       this.totalTabs = data['default'].length;
-    });
+    const data = service.getFields();
+    this.fields = data;
+    this.totalTabs = data.length;
   }
 }

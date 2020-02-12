@@ -1,15 +1,12 @@
-<p *ngIf="successMessage">{{successMessage}}</p>
-<div *ngIf="!successMessage">
-    <form (ngSubmit)="onSubmit()" [formGroup]="surveyForm">
+<form (ngSubmit)="onSubmit()" [formGroup]="surveyForm">
 
-        <div *ngFor="let field of fields">
-            <app-dynamic-field [field]="field" [form]="surveyForm" [submitted]="submitted"></app-dynamic-field>
+    <div *ngFor="let field of fields">
+        <app-dynamic-field [field]="field" [form]="surveyForm" [submitted]="submitted"></app-dynamic-field>
+    </div>
+    <div>
+        <button type="submit" mat-raised-button color="primary">
+            <span *ngIf="index < (totalTabs -1)">Next</span>
+            <span *ngIf="index === (totalTabs -1)">Submit</span>
+        </button>
         </div>
-        <div>
-            <button type="submit" mat-raised-button color="primary">
-                <span *ngIf="index < (totalTabs -1)">Next</span>
-                <span *ngIf="index === (totalTabs -1)">Submit</span>
-            </button>
-          </div>
-    </form>
-</div>
+</form>

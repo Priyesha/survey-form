@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FieldBase } from '../survey-field/field-base';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { FieldService } from '../survey-field/field-service';
 
 @Component({
@@ -20,7 +20,7 @@ export class DynamicFormComponent implements OnInit {
   submitted = false;
   // successMessage: string;
 
-  constructor(private fb: FormBuilder, private service: FieldService) { }
+  constructor(private service: FieldService) { }
 
   ngOnInit() {
     this.surveyForm = this.service.getFormGroup(this.fields);
@@ -30,8 +30,7 @@ export class DynamicFormComponent implements OnInit {
     this.submitted = true;
     if (this.surveyForm.valid) {
       if (this.activeTab < (this.totalTabs - 1)) {
-        this.activeTab = this.activeTab + 1;
-        this.selectedTab.emit(this.activeTab);
+        this.selectedTab.emit(++this.activeTab);
       } else {
         this.complt.emit(true);
         console.log(this.surveyForm.value);

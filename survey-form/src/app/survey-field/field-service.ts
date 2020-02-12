@@ -11,27 +11,21 @@ export class FieldService {
   private group: any = {};
 
   getFields() {
-    const fields: FieldBase<string>[] = data;
-    return of(fields);
+    // tslint:disable-next-line: no-string-literal
+    return data['default'];
   }
 
-  getFormGroup(formfields) {
-    formfields.forEach(item => {
-      let validators;
-      if (item.required && item.length > 0) {
-        validators = [Validators.required, Validators.maxLength(item.length)];
-      } else if (item.required) {
-        validators = [Validators.required];
-      } else if (item.length > 0) {
-        validators = [Validators.maxLength(item.length)];
-      } else {
-        validators = [];
+  getFormGroup(formFields) {
+    formFields.forEach(item => {
+      const validators = [];
+      if (item.required) {
+        validators.push(Validators.required);
       }
-      if (item.options) {
-        this.group[item.key] = new FormArray([]);
-      } else {
-        this.group[item.key] = new FormControl('', validators);
+      if (item.length > 0) {
+        validators.push(Validators.maxLength(item.length));
       }
+      this.group[item.key] = item.options ?
+        new FormArray([], validators) : new FormControl('', validators);
     });
     return new FormGroup(this.group);
   }
