@@ -18,7 +18,6 @@ export class DynamicFormComponent implements OnInit {
   @Output() selectedTab = new EventEmitter<number>();
   @Output() complt = new EventEmitter<boolean>();
   submitted = false;
-  // successMessage: string;
 
   constructor(private service: FieldService) { }
 

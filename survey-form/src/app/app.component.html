@@ -8,8 +8,7 @@
       <ng-template mat-tab-label>
         {{tab.stepName}}
       </ng-template>
-      <app-dynamic-form *ngIf="i === activeTab" [fields]="tab.controls" [index]="i" [totalTabs]="totalTabs" 
-      [activeTab]="activeTab" (selectedTab)="activeTab = $event" (complt)="success = $event"></app-dynamic-form>
-    </mat-tab> 
+      <app-dynamic-form *ngIf="i === activeTab" [fields]="tab.controls" [index]="i" [totalTabs]="totalTabs"
+        [activeTab]="activeTab" (selectedTab)="activeTab = $event" (complt)="success = $event"></app-dynamic-form>
+    </mat-tab>
   </mat-tab-group>
-  

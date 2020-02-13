@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FieldBase } from './field-base';
 import * as data from './survey-fields.json';
-
-import { of } from 'rxjs';
 import { Validators, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 @Injectable()
